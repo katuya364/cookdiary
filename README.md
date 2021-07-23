@@ -22,3 +22,46 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## usersテーブル
+
+|Column              |Type    |Options                    |
+|------------------- |------- |-------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| first_name_kanji   | string | null: false               |
+| last_name_kanji    | string | null: false               |
+| first_name_kana    | string | null: false               |
+| last_name_kana     | string | null: false               |
+
+
+### Association
+- has_many :items
+- has_many :messages
+
+## itemsテーブル
+
+|Column              |Type        |Options                         |
+|------------------- |----------- |------------------------------- |
+| item_name          | string     | null: false                    |
+| item_description   | text       | null: false                    |
+| post_data          | data       | null: false                    |
+| recipe             | text       |                                |
+| user               | references | null: false, foreign_key: true |
+
+### Association
+- belongs_to :user
+- has_many :messages
+
+## messagesテーブル
+
+|Column   |Type        |Options                         |
+|-------- |----------- |------------------------------- |
+| content | references | null: false                    |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
+
+### Association
+- belongs_to :user
+- belongs_to :item
